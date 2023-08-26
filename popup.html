@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>CSS Variable Changer</title>
+  <script src="popup.js"></script>
+</head>
+<body>
+  <h2>ClassWeb Injector :)</h2>
+  <h3>Change The Site Colors!</h3>
+  <label for="variable-name">Variable Name:</label>
+  <input type="text" id="variable-name" value="linkColor">
+  <label for="variable-value">New Value:</label>
+  <!-- Use the color input type to provide a color picker -->
+  <input type="text" id="variable-value" value="purple">
+  <button id="apply">Apply</button>
+
+  <h3>For Your Tired Eyes!</h3>
+  <!-- Add more buttons as needed -->
+  <button class="preload-button" data-values='
+    {
+    "background": "#002B36",
+    "foreground": "#073642",
+    "color": "white",
+    "linkColorHighlight": "#2aa198",
+    "visited": "#268bd2",
+    "popColor": "#2aa198",
+    "linkColor": "#268bd2"
+    }'
+    >Dark Mode</button>
+    <button class="preload-button" data-values='
+    {
+    "background": "#fafafa",
+    "foreground": "#e4e5e1",
+    "color": "#552222",
+    "linkColorHighlight": "#7B1818",
+    "visited": "#D2042D",
+    "popColor": "#7B1818",
+    "linkColor": "#D2042D"
+    }'
+    >Light Mode</button>
+
+
+</body>
+<style>
+    body {
+  font-family: 'Courier New', monospace;
+  background-color: #1a1a1a;
+  color: #00ff00;
+  padding: 10px;
+}
+
+h2 {
+  color: #00ff00;
+  margin-bottom: 10px;
+}
+
+label {
+  color: #00ff00;
+  display: block;
+  margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="color"],
+input[type="file"] {
+  background-color: #292929;
+  color: #00ff00;
+  border: 1px solid #00ff00;
+  padding: 5px;
+  margin-bottom: 10px;
+}
+
+button {
+  background-color: #292929;
+  color: #00ff00;
+  border: 1px solid #00ff00;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #00ff00;
+  color: #000;
+}
+
+#clear-localstorage {
+  margin-top: 10px;
+}
+
+#apply-background {
+  margin-top: 10px;
+}
+
+</style>
+</html>
