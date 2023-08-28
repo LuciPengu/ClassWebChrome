@@ -21,6 +21,7 @@ for (let i = 0; i < navbar.length; i++) {
 	navbar[i].innerHTML = newNavNames[i];
 }
 
+
 //color storage
 for (let i = 0; i < localStorage.length; i++) {
   const key = localStorage.key(i);
@@ -74,103 +75,23 @@ if (window.location.pathname == "/pls/OWA_PROD/bwskfshd.P_CrseSchd"){
 
     calendar[i].after(googleCalendarButton);
   }
+
+  let detailedScheduleButton = document.createElement('button');
+  detailedScheduleButton.textContent = 'See A More Detailed Schedule With Teachers';
+  detailedScheduleButton.style.display = 'block';
+  detailedScheduleButton.style.marginTop = '10px';
+  detailedScheduleButton.addEventListener('click', () => {
+    window.location.href = "bwskfshd.P_CrseSchdDetl"
+
+  });
+  let pageDiv = document.querySelectorAll(".pagebodydiv")[0];
+  pageDiv.insertBefore(detailedScheduleButton, pageDiv.firstChild);
 }
 
 
 
 //teacher functionality
 if(window.location.pathname == "/pls/OWA_PROD/bwskfshd.P_CrseSchdDetl"){
-  var parseFile = function(text)
-  {
-    var parseLine = function(line)
-    {
-      var newLine = "";
-      var add = true;
-      for(var i = 0; i < line.length; i++)
-      {
-        if(add)
-        {
-          if(line[i] == '<')
-            add = false;
-          else
-            newLine += line[i];
-        }
-        else if(line[i] == '>')
-        {
-          add = true;
-        }
-      }
-      
-      return newLine;
-    }
-
-    var classes = [];
-    var lines = text.split("\n");
-
-    var classNum = 0;
-    //console.log("start");
-    for(var i = 0; i < lines.length; i++)
-    {
-      if(lines[i].includes('<table class="datadisplaytable" summary="This layout table is used to present the schedule course detail"><caption class="captiontext">')) // class start
-      
-      {
-        var className = parseLine(lines[i]);
-        console.log("" + className);
-        
-        var classTimes = [];
-        var classDays = [];
-        var classBuilding = [];
-        var classRoom = [];
-        while (i < lines.length && !lines[i].includes('<table class="datadisplaytable" summary="This layout table is used to present schedule notes">'))
-        {
-          if(lines[i].includes('<td class="dddefault">Class</td>)') || lines[i].includes('<td class="dddefault">Lab</td>')) {
-            classTimes.push(parseLine(lines[i+1]));
-            classDays.push(parseLine(lines[i+2]));
-            
-            console.log("time: " + parseLine(lines[i+1]));
-            console.log("day: " + parseLine(lines[i+2]));
-            
-            var bldroom = parseLine(lines[i+3]);
-            console.log(bldroom);
-            
-            if(bldroom == "LTBA ONLINE")
-            {
-              classBuilding.push("ONLINE");
-              classRoom.push("ONLINE");
-            }
-            else
-            {
-              var space = 0;
-              while(bldroom[space] != ' ' && space < bldroom.length) space++;
-              
-              classBuilding.push(bldroom.substring(0, space));
-              classRoom.push(bldroom.substring(space+1));
-            }
-            
-            i+=7;
-            }
-          else
-          {						
-            i++;
-          }
-        }
-        
-        classes[classNum] = {
-          name: className,
-          times: classTimes,
-          days: classDays,
-          bldg: classBuilding,
-          room: classRoom
-        };
-        
-        classNum++;
-      }
-
-    }
-    return classes;
-  }
-
-  document.cookie = "username=John; expires=" + new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toUTCString();
 
   function capitalizeFirstLetter(str) {
     return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
@@ -197,8 +118,53 @@ if(window.location.pathname == "/pls/OWA_PROD/bwskfshd.P_CrseSchdDetl"){
     }
   }
 
-  const classData = JSON.stringify(parseFile(document.documentElement.outerHTML));
-  console.log(classData);
-  
-}
+  const captions = document.querySelectorAll(".captiontext");
+  let classes = [];
+  for (let i = 0; i < captions.length-1; i+=2){
 
+    let classInfo = captions[i+1].nextElementSibling.querySelectorAll("tr");
+    let oneClass = {
+      "name": captions[i].innerHTML,
+      "times": [],
+      "days": [],
+      "bldg": [],
+      "room": []
+    }
+    console.log(classInfo)
+    for (let j = 1; j < classInfo.length; j+=1){
+      let tableRowData = classInfo[j].querySelectorAll(".dddefault")
+      
+      let time = tableRowData[1].innerHTML;
+      if (time == '<abbr title="To Be Announced">TBA</abbr>')
+        oneClass["times"].push("TBA");
+      else
+        oneClass["times"].push(tableRowData[1].innerHTML);
+      
+      let day = tableRowData[2].innerHTML;
+      if (day != "&nbsp;")
+        oneClass["days"].push(day);
+      
+      let location = tableRowData[3].innerHTML.split(" ");
+      oneClass["bldg"].push(location[0]);
+      oneClass["room"].push(location[location.length-1]);
+
+    }
+    classes.push(oneClass);
+  }
+  console.log(classes);
+  let jsonString = JSON.stringify(classes);
+  let encodedJson = encodeURIComponent(jsonString);
+
+  let konradMapLink = `https://clientsidedullparentheses.hydrabeans.repl.co?c=${encodedJson}`;
+
+  let konradMapButton = document.createElement('button');
+  konradMapButton.textContent = 'See Where My Classes Are On A Map!';
+  konradMapButton.style.display = 'block';
+  konradMapButton.style.marginBottom = '10px';
+  konradMapButton.addEventListener('click', () => {
+      window.open(konradMapLink, '_blank');
+  });
+  let pageDiv = document.querySelectorAll(".pagebodydiv")[0];
+  pageDiv.insertBefore(konradMapButton, pageDiv.firstChild);
+
+}
