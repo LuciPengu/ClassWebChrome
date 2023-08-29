@@ -5,6 +5,11 @@ document.addEventListener("DOMContentLoaded", function() {
   const preloadButtons = document.querySelectorAll(".preload-button");
   const saveButton = document.getElementById("save-button");
 
+  const fontLink = document.createElement("link");
+  fontLink.href = "https://fonts.googleapis.com/css?family=Montserrat&display=swap";
+  fontLink.rel = "stylesheet";
+  document.head.appendChild(fontLink);
+
   applyButton.addEventListener("click", function() {
     const variableName = variableNameInput.value;
     const variableValue = variableValueInput.value;

@@ -10,12 +10,10 @@
   <label for="variable-name">Variable Name:</label>
   <input type="text" id="variable-name" value="linkColor">
   <label for="variable-value">New Value:</label>
-  <!-- Use the color input type to provide a color picker -->
   <input type="text" id="variable-value" value="purple">
   <button id="apply">Apply</button>
 
   <h3>For Your Tired Eyes!</h3>
-  <!-- Add more buttons as needed -->
   <button class="preload-button" data-values='
     {
     "background": "#002B36",
@@ -42,20 +40,20 @@
 
 </body>
 <style>
-    body {
-  font-family: 'Courier New', monospace;
-  background-color: #1a1a1a;
-  color: #00ff00;
+
+body {
+  background-color: #002B36;
+  color: #268bd2;
   padding: 10px;
 }
 
 h2 {
-  color: #00ff00;
+  color: #268bd2;
   margin-bottom: 10px;
 }
 
 label {
-  color: #00ff00;
+  color: #268bd2;
   display: block;
   margin-bottom: 5px;
 }
@@ -63,24 +61,30 @@ label {
 input[type="text"],
 input[type="color"],
 input[type="file"] {
-  background-color: #292929;
-  color: #00ff00;
-  border: 1px solid #00ff00;
-  padding: 5px;
-  margin-bottom: 10px;
+  flex: 1;
+  border: none;
+  padding: 8px;
+  margin-left: 0.5em;
+  background-color: #002B36 !important;
+  outline: none;
+  color: white !important;
+  border: 1px solid white;
+  border-radius: 4px;
 }
 
 button {
-  background-color: #292929;
-  color: #00ff00;
-  border: 1px solid #00ff00;
-  padding: 5px 10px;
+  border-radius: 4px;
+  background-color: #268bd2;
+  border: none;
+  margin-left: 0.5em;
+  color: white;
+  padding: 8px 15px;
   cursor: pointer;
+  outline: none;
 }
 
 button:hover {
-  background-color: #00ff00;
-  color: #000;
+  background-color: #2aa198;
 }
 
 #clear-localstorage {
