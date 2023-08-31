@@ -1,3 +1,27 @@
+
+if(document.querySelectorAll('b')[0].innerHTML == "Sign On to CLASS-Web"){
+	const paragraphs = document.querySelectorAll('p');
+	const tableBoxes = document.querySelectorAll('.tableboxportal');
+	const headers = document.querySelectorAll('h2');
+	const body = document.querySelectorAll('tr')[1];
+	
+	body.style = `
+		position: absolute;
+	  left: 50%;
+	  top: 50%;
+	  margin: -60px 0 0 50px;
+
+	  -webkit-transform: translate(-50%, -50%);
+	  transform: translate(-50%, -50%);
+	`
+	
+	tableBoxes[1].style = "display:none";
+	headers[1].style = "display:none";
+	for (paragraph in paragraphs){
+		paragraphs[paragraph].style = "display:none";
+	}
+}
+
 console.log("Custom JS Has Been Injected.");
 
 //styling
@@ -52,6 +76,21 @@ if (window.location.pathname == "/pls/OWA_PROD/twbkwbis.p_idm_logout"){
   window.location.href = "/pls/OWA_PROD/twbkwbis.P_WWWLogin";
 }
 
+function convertTime(time){
+	
+	let today = new Date();
+	let year = today.getFullYear();   // 4-digit year
+	let month = today.getMonth() + 1; // Month (0-11, so adding 1)
+	let day = today.getDate();  
+	let [hour, min] = time.split(":");
+	hour = parseInt(time);
+	min = parseInt(min);
+	
+	hour += (hour != 12 && time.slice(-2) == "pm") ? 12 : 0;
+		
+	return `${year}${month.toString().padStart(2, '0')}${day.toString().padStart(2, '0')}T${hour.toString().padStart(2, '0')}${min.toString().padStart(2, '0')}00`;
+}
+
 //calendar functionality
 if (window.location.pathname == "/pls/OWA_PROD/bwskfshd.P_CrseSchd"){
   const calendar = document.querySelectorAll('.ddlabel > a');
@@ -60,10 +99,12 @@ if (window.location.pathname == "/pls/OWA_PROD/bwskfshd.P_CrseSchd"){
 
     let className = classDetails[0].trim();
     let classCode = classDetails[1].trim();
-    let classTime = classDetails[2].trim();
+    let classTime = classDetails[2].trim().split("-");
     let classLocation = classDetails[3].trim();
     
-    let googleCalendarLink = `https://www.google.com/calendar/event?action=TEMPLATE&text=${className}&dates=20230825T183000/20230825T204500&details=${className}&location=${classLocation}`;
+	let startTime = convertTime(classTime[0]);
+	let endTime = convertTime(classTime[1]);
+    let googleCalendarLink = `https://www.google.com/calendar/event?action=TEMPLATE&text=${className}&dates=${startTime}/${endTime}&details=${className}&location=${classLocation}`;
 
     let googleCalendarButton = document.createElement('button');
     googleCalendarButton.textContent = 'Google 📅';
@@ -89,10 +130,9 @@ if (window.location.pathname == "/pls/OWA_PROD/bwskfshd.P_CrseSchd"){
 }
 
 
-
 //teacher functionality
-if(window.location.pathname == "/pls/OWA_PROD/bwskfshd.P_CrseSchdDetl"){
-
+if(window.location.pathname == "/pls/OWA_PROD/bwskfshd.P_CrseSchdDetl" && document.querySelectorAll('h2')[0].innerHTML == "Student Detail Schedule"){
+	
   function capitalizeFirstLetter(str) {
     return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
   }
