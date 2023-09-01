@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Class-Web Fix!",
-  "version": "1.1",
+  "version": "1.2",
   "description": "Inject new code into Las Positas Class-Web",
   "permissions": ["activeTab"],
   "icons": {

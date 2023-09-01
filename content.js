@@ -1,5 +1,5 @@
 
-if(document.querySelectorAll('b')[0].innerHTML == "Sign On to CLASS-Web"){
+if(document.querySelectorAll('b').length > 0 && document.querySelectorAll('b')[0].innerHTML == "Sign On to CLASS-Web"){
 	const paragraphs = document.querySelectorAll('p');
 	const tableBoxes = document.querySelectorAll('.tableboxportal');
 	const headers = document.querySelectorAll('h2');
@@ -41,8 +41,13 @@ const newNavLinks = ["bwskflib.P_SelDefTerm","bwskfshd.P_CrseSchd","bwskotrn.P_V
 const newNavNames = ["My Classes", "My Schedule", "My Grades", "Pay Fees"];
 
 for (let i = 0; i < navbar.length; i++) {
-  navbar[i].href = newNavLinks[i];
-	navbar[i].innerHTML = newNavNames[i];
+  	if (i >= newNavLinks.length){
+		navbar[i].style = "display:none";
+	}
+	else{
+		navbar[i].href = newNavLinks[i];
+		navbar[i].innerHTML = newNavNames[i];
+	}
 }
 
 
