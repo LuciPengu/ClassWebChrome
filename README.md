@@ -11,36 +11,36 @@ It adds new features to make signing up for classes and finding those classes on
 ## Installation
 1. Click this link [here](https://chrome.google.com/webstore/detail/class-web-fix/fchgpbfllmijdknkddmhhelbkhelpcng) to take you to the extension store
 2. Click on the **Add to Chrome** or **Get** button and the extension will be installed
-![](Images/Chrome_install_menu.png)
+![](images/Chrome_install_menu.png)
 ## Login
 1. The login page will look different than before
-![](Images/ClassWeb_entry_page.png)
+![](images/ClassWeb_entry_page.png)
 2. Click **Sign On to CLASS-Web**, and it will take you to this page
-![](Images/ClassWeb_login_page.png)
+![](images/ClassWeb_login_page.png)
 3. Enter your W# and pin as you normally would
 ## Features
 ### Fast Menu
 * There are new options at the top of class web once you log in
-![](Images/New_menu.png)
+![](images/New_menu.png)
 ### Adding Classes
 * Clicking on the **My Classes** button in the fast menu takes you here
-![](Images/Select_term_menu.png)
+![](images/Select_term_menu.png)
 * You can add or drop classes like normal
 ### Dark Mode
 * Find the extension icon in your browser and click on it to reveal this menu.
 * Click on the dark mode button, and Class-Web will be in dark mode!
-![](Images/Finding_extension_icon.png)
+![](images/Finding_extension_icon.png)
 ### Easy Schedule
 * Clicking on the **My Schedule** button in the fast menu takes you to this page
-![](Images/Calendar_view.png)
+![](images/Calendar_view.png)
 * All classes for the week will be displayed in a calendar like format
 * **Previous Week** and **Next Week** buttons changes the week you will see on screen
 * Clicking on the **Google** button adds the event to Google calendar
 
 * Clicking on the **See A More Detailed Schedule With Teachers** shows this page.
-![](Images/More_detailed_view.png)
+![](images/More_detailed_view.png)
 * All the relevant information about each class you're taking in the term available
 * Your total credit hours visible
 * Buttons to order books for Chabot or Las Positas college
 * **See Where My Classes Are On A Map** button shows where all your classes will take place
-![](Images/Map_view.png)
+![](images/Map_view.png)
