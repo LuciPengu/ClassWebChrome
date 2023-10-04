@@ -213,3 +213,14 @@ if(window.location.pathname == "/pls/OWA_PROD/bwskfshd.P_CrseSchdDetl" && docume
   pageDiv.insertBefore(konradMapButton, pageDiv.firstChild);
 
 }
+
+//grade change
+document.querySelectorAll(".ddtitle")[0].remove();
+document.querySelectorAll(".whitespace1")[0].remove();
+document.querySelectorAll(".ddseparator")[0].remove();
+document.querySelectorAll(".plaintable")[0].remove();
+console.log(document.querySelectorAll(".pagebodydiv")[0]);
+console.log(document.querySelectorAll(".datadisplaytable")[0]);
+
+
+
