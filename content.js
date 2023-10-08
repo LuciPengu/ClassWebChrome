@@ -214,13 +214,234 @@ if(window.location.pathname == "/pls/OWA_PROD/bwskfshd.P_CrseSchdDetl" && docume
 
 }
 
-//grade change
+//Hassieb's Grade viewer
+
+
+
+
+
+
+// Create a new <div> element to serve as the container
+const container = document.createElement('div');
+
+// Set the ID attribute of the container (if needed)
+container.id = 'my-table-container';
+
+// Append the container to the document body or another element on the page
+document.body.appendChild(container); // You can replace document.body with another element if necessary
+
+// Now, proceed with extracting data and displaying it in the container
+
+window.onload = function() {
+  // Select the table by its class
+  const table = document.querySelector('.datadisplaytable');
+
+  if (table) {
+    // Create a new HTML table to display the data
+    const newTable = document.createElement('table');
+
+    // Initialize a flag to track whether the notice has been displayed
+    let noticeDisplayed = false;
+
+    // Iterate through the rows in the table
+    const rows = table.querySelectorAll('tr');
+    rows.forEach(row => {
+      // Check if this is the notice row and skip it
+      if (!noticeDisplayed && row.textContent.includes('Transcript type:')) {
+        noticeDisplayed = true;
+        return;
+      }
+
+      // Create a new row in the new table
+      const newRow = newTable.insertRow();
+
+      // Iterate through the cells in the row
+      const cells = row.querySelectorAll('th, td');
+      cells.forEach((cell, cellIndex) => {
+        // Determine the cell type (header or data)
+        const cellType = cell.tagName.toLowerCase();
+
+        // Create a cell in the new table
+        const newCell = cellType === 'th' ? document.createElement('th') : document.createElement('td');
+        newCell.textContent = cell.textContent;
+
+        // Append the new cell to the new row
+        newRow.appendChild(newCell);
+      });
+    });
+
+    // Append the new table to the container element
+    container.appendChild(newTable);
+
+    // Hide the old table
+    table.style.display = 'none';
+  } else {
+    console.log('Table with class .datadisplaytable not found.');
+  }
+};
+
+
+
+
+
+
+
+
+
+
+
+
+/*
 document.querySelectorAll(".ddtitle")[0].remove();
 document.querySelectorAll(".whitespace1")[0].remove();
 document.querySelectorAll(".ddseparator")[0].remove();
 document.querySelectorAll(".plaintable")[0].remove();
 console.log(document.querySelectorAll(".pagebodydiv")[0]);
 console.log(document.querySelectorAll(".datadisplaytable")[0]);
+document.querySelectorAll(".ddseparator")[0].remove();
+*/
+// Select all the rows in the table
+
+/*
+const rows = document.querySelectorAll("tr");
+
+// Create an array to store the extracted semester data
+const semesters = [];
+
+// Initialize variables to keep track of the current semester and course
+let currentSemester = null;
+let currentCourse = null;
+
+// Loop through all the rows in the table
+for (let i = 0; i < rows.length; i++) {
+  const row = rows[i];
+  const cells = row.querySelectorAll("td, th");
+  
+  // Check if this row contains semester-related data
+  if (cells.length === 1) {
+    const semesterLabel = cells[0].querySelector(".fieldOrangetextbold");
+    if (semesterLabel) {
+      const termLabel = semesterLabel.textContent.trim();
+      
+      // Create an object to store the extracted semester data
+      const semesterInfo = {
+        termLabel,
+        courses: [], // Initialize an array to store course data within this semester
+      };
+      
+      semesters.push(semesterInfo); // Add semester data to the array
+      currentSemester = semesterInfo; // Update the current semester
+    }
+  }
+  
+  // Check if this row contains course data
+  if (cells.length === 13 && currentSemester) {
+    const subject = cells[0].textContent.trim();
+    const courseNumber = cells[1].textContent.trim();
+    const campus = cells[2].textContent.trim();
+    const grade = cells[6].textContent.trim();
+    const creditUnits = cells[8].querySelector("p").textContent.trim();
+    const gradePoints = cells[10].querySelector("p").textContent.trim();
+    
+    // Create an object to store the extracted course data
+    const courseInfo = {
+      subject,
+      courseNumber,
+      campus,
+      grade,
+      creditUnits,
+      gradePoints,
+    };
+    
+    currentCourse = courseInfo; // Update the current course
+    currentSemester.courses.push(courseInfo); // Add course data to the current semester
+  }
+}
+
+// Now, the 'semesters' array contains all the extracted semester data, each with course-specific data
+console.log(semesters);
+
+// ... (your existing code for data extraction)
+
+// Remove the old table
+const oldTable = document.querySelectorAll(".datadisplaytable")[0];
+if (oldTable) {
+  oldTable.remove();
+}
+
+// Create a container div to hold the data
+const dataContainer = document.createElement("div");
+
+// Loop through the semesters array and create a section for each semester
+for (const semester of semesters) {
+  // Create a div for the semester data
+  const semesterDiv = document.createElement("div");
+  semesterDiv.className = "semester"; // Add a class for styling (optional)
+
+  // Add the term label for the semester
+  const termLabel = document.createElement("h2");
+  termLabel.textContent = semester.termLabel;
+  semesterDiv.appendChild(termLabel);
+
+  // Create a table for the courses within the semester
+  const courseTable = document.createElement("table");
+
+  // Create a table header row
+  const tableHeader = document.createElement("tr");
+
+  // Add table header cells for each course attribute (subject, course number, etc.)
+  const headers = ["Subject", "Course Number", "Campus", "Grade", "Credit Units", "Grade Points"];
+  for (const headerText of headers) {
+    const headerCell = document.createElement("th");
+    headerCell.textContent = headerText;
+    tableHeader.appendChild(headerCell);
+  }
+
+  courseTable.appendChild(tableHeader);
+
+  // Loop through the courses and create rows for course data
+  for (const course of semester.courses) {
+    const courseRow = document.createElement("tr");
+
+    // Create table data cells for each course attribute
+    const subjectCell = document.createElement("td");
+    subjectCell.textContent = course.subject;
+    courseRow.appendChild(subjectCell);
+
+    const courseNumberCell = document.createElement("td");
+    courseNumberCell.textContent = course.courseNumber;
+    courseRow.appendChild(courseNumberCell);
+
+    const campusCell = document.createElement("td");
+    campusCell.textContent = course.campus;
+    courseRow.appendChild(campusCell);
+
+    const gradeCell = document.createElement("td");
+    gradeCell.textContent = course.grade;
+    courseRow.appendChild(gradeCell);
+
+    const creditUnitsCell = document.createElement("td");
+    creditUnitsCell.textContent = course.creditUnits;
+    courseRow.appendChild(creditUnitsCell);
+
+    const gradePointsCell = document.createElement("td");
+    gradePointsCell.textContent = course.gradePoints;
+    courseRow.appendChild(gradePointsCell);
+
+    courseTable.appendChild(courseRow);
+  }
+
+  semesterDiv.appendChild(courseTable);
+
+  // Append the semester div to the data container
+  dataContainer.appendChild(semesterDiv);
+}
+
+// Append the data container to the document's body or a specific element
+document.body.appendChild(dataContainer);
+*/
+
+
 
 
 
